@@ -1,5 +1,5 @@
 .header{
-    background: #FFFF00;
+    background: #FFFF;
 };
 
 .header__inner{
@@ -9,8 +9,12 @@
 };
 
 .header__hogo{
-    color: #fff;
+    color: #FFFF00;
     text-decoration: none;
     font-weight: bold;
     font-size: 24px;
+}
+
+.content{
+    background: #f0f0f0;
 }
