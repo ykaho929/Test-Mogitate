@@ -14,7 +14,7 @@
         <button class="add-button">+商品を追加</button>
     </div>
 
-    <div class="Mogitate-search">
+    <div class="product-search">
         <form class="search-form" action="/products/search" method="get">
             @csrf
             <input class="search-form__input" type="text" name="input" value="{{ $input }}" placeholder="商品名で検索">
@@ -23,8 +23,17 @@
             </div>
         </form>
     </div>
-
-    <div class="Mogitate-list">
+    <div class="product-list">
+        <div class="product-list-content">
+            <div class="product-list-content__item">
+                <img src="/storage/fruits-img/banana.png">
+            </div>
+            <div class="product-list-content__item">
+                <item_inner="name">バナナ</item>
+                <item_inner="price">150円</item>
+            </div>
+        </div>
     </div>
+</div>
 
 @endsection
