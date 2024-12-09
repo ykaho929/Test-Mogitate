@@ -9,7 +9,8 @@ class ProductController extends Controller
 {
     public function index()
     {
-        return view('index');
+        $products = Product::select('name', 'price', 'image');
+        return view('index', compact('products'));
     }
 
     public function find()
