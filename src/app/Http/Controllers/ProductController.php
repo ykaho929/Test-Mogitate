@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Storage;
+
 
 class ProductController extends Controller
 {
@@ -32,5 +34,18 @@ class ProductController extends Controller
 
     public function add(){
         return view('add');
-    }        
+    }
+    
+    public function store(Request $request)
+    {
+        if($request->hasFile('image')){
+            $file = $request->file('image');
+            $path = Storage::disk('public')->putFile('images', $file);
+
+            return response()->json(['message' => 'Image uploaded successfully', 'url' => Storage::disk('public')->url($path)]);
+        }
+
+        return response()->json(['error' => 'No image file uploaded'], 400);
+        
+    }
 }

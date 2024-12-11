@@ -7,8 +7,9 @@ use Illuminate\Http\Request;
 
 class SeasonController extends Controller
 {
-    public function add(){
-        $seasons = ['春', '夏', '秋', '冬'];
+    public function create(){
+        $seasons = Season::all();
         return view('add', compact('seasons'));
     }   
+    
 }

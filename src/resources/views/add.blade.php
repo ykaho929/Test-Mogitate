@@ -41,7 +41,7 @@
         </div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="text" name="name" placeholder="商品名を入力" />
+                    <input type="file" name="image" >
                 </div>
             <div class="form__error">
               <!--バリデーション機能を実装したら記述します。-->
@@ -52,12 +52,10 @@
             <span class="form__label--required">必須</span>
         </div>
             <div class="form__group-content">
-            <!-- @isset($seasons) -->
             @foreach ($seasons as $season)
-                <input type="checkbox" name="seasons[]" value="{{ $seasons->id }}">
+                <input type="checkbox" name="seasons[]" value="{{ $season->id }}">
                 {{ $season->name }}
             @endforeach
-            <!-- @endisset -->
             <div class="form__error">
               <!--バリデーション機能を実装したら記述します。-->
             </div>
