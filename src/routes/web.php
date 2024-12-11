@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\SeasonController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,4 +21,5 @@ Route::get('/', function () {
 Route::get('/products', [ProductController::class, 'index']);
 Route::get('/products', [ProductController::class,'search']);
 Route::post('/products', [ProductController::class,'search']);
-Route::get('/products/register',[ProductController::class, 'add']);
+Route::post('/products/register',[ProductController::class, 'store']);
+Route::get('/products/register',[SeasonController::class, 'create']);
