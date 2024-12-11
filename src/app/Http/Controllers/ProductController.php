@@ -4,27 +4,33 @@ namespace App\Http\Controllers;
 
 use App\Models\Product;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::select('name', 'price', 'image');
+        $products = Product::all();
         return view('index', compact('products'));
     }
 
-    public function find()
-    {
-        return view('find', ['input' => '']);
-    }
+    // public function find()
+    // {
+    //     return view('find', ['input' => '']);
+    // }
 
     public function search(Request $request)
     {
-        $item = Product::where('name', $request->input)->first();
+        $input = $request->input('input');
+        $item = Product::where('name', 'like', '%' . $request->input . '%')->first();
         $param = [
             'input' => $request->input,
             'item' => $item
         ];
-        return view('index', $param);
+        return view('index', compact('item', 'input'));
     }
+
+    public function add(){
+        return view('add');
+    }        
 }
