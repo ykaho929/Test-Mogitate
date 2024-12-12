@@ -32,7 +32,9 @@
                     <input type="text" name="name" placeholder="値段を入力" />
                 </div>
             <div class="form__error">
-              <!--バリデーション機能を実装したら記述します。-->
+                @error('name')
+                {{ $message }}
+                @enderror
             </div>
         </div>
         <div class="form__group-title">
@@ -44,7 +46,9 @@
                     <input type="file" name="image" >
                 </div>
             <div class="form__error">
-              <!--バリデーション機能を実装したら記述します。-->
+                @error('price')
+                {{ $message }}
+                @enderror
             </div>
         </div>
         <div class="form__group-title">
@@ -57,7 +61,9 @@
                 {{ $season->name }}
             @endforeach
             <div class="form__error">
-              <!--バリデーション機能を実装したら記述します。-->
+                @error('season')
+                {{ $message }}
+                @enderror
             </div>
         </div>
         <div class="form__group-title">
@@ -69,7 +75,9 @@
                     <input type="text" name="name" placeholder="商品の説明を入力" />
                 </div>
             <div class="form__error">
-              <!--バリデーション機能を実装したら記述します。-->
+                @error('description')
+                {{ $message }}
+                @enderror
             </div>
         </div>    
 

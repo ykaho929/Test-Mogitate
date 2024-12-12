@@ -2,9 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ProductRequest;
+use App\Http\Requests\SeasonRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Storage;
 
 
@@ -47,5 +48,12 @@ class ProductController extends Controller
 
         return response()->json(['error' => 'No image file uploaded'], 400);
         
+    }
+
+    public function create(ProductRequest $product)
+    {
+        $product = $request ->only(['name','price','image','description']);
+        Product::create($product);
+        return redirect('/products');
     }
 }
