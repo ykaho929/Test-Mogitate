@@ -6,11 +6,11 @@
 
 @section('content')
 
-<div class="Mogitate__content">
-    <div class="Mogitate__heading-ttl">
+<div class="content">
+    <div class="heading-ttl">
         <h2>商品一覧</h2>
     </div>
-    <div class="Mogitate__heading-item">
+    <div class="heading-item">
         <a class="add-button" href="/products/register">+商品を追加</a>
     </div>
 
@@ -25,17 +25,15 @@
     </div>
     <div class="product-list">
         <div class="product-list-content">
-            <!-- @isset($products) -->
+            @isset($products)
             @foreach($products as $product)
             <div class="product-list-content__item">
                 <img src="/storage/fruits-img/{{ $product->image }}">
-            </div>
-            <div class="product-list-content__item">
                 <span class="product-name">{{ $product->name }}</span>
-                <span class="product-price">{{ $product->price }}</span>
+                <span class="product-price">{{ $product->price }}</span>               
             </div>
             @endforeach
-            <!-- @endisset -->
+            @endisset
         </div>
     </div>
 </div>
