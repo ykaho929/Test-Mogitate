@@ -7,12 +7,16 @@ use Illuminate\Database\Eloquent\Model;
 
 class Product extends Model
 {
+    use HasFactory;
 
     protected $fillable = [
         'name',
         'price',
         'image',
-        'description',
+        'description'
     ];
-    public $timestamps = false;
+    
+    protected $casts = [
+        'price' => 'integer',
+    ];
 }

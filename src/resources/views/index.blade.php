@@ -25,7 +25,7 @@
     </div>
     <div class="product-list">
         <div class="product-list-content">
-            @isset($products)
+            
             @foreach($products as $product)
             <div class="product-list-content__item">
                 <img src="/storage/fruits-img/{{ $product->image }}">
@@ -33,7 +33,7 @@
                 <span class="product-price">{{ $product->price }}</span>               
             </div>
             @endforeach
-            @endisset
+            
         </div>
     </div>
 </div>

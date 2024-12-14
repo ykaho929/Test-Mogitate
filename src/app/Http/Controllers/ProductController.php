@@ -14,23 +14,15 @@ class ProductController extends Controller
     public function index()
     {
         $products = Product::all();
-        return view('index', compact('products'));
+        $input = '';
+        return view('index', compact('products', 'input'));
     }
-
-    // public function find()
-    // {
-    //     return view('find', ['input' => '']);
-    // }
 
     public function search(Request $request)
     {
         $input = $request->input('input');
-        $item = Product::where('name', 'like', '%' . $request->input . '%')->first();
-        $param = [
-            'input' => $request->input,
-            'item' => $item
-        ];
-        return view('index', compact('item', 'input'));
+        $products = Product::where('name', 'like', '%' . $input . '%')->get(); 
+        return view('index', compact('products', 'input'));
     }
 
     public function add(){
@@ -52,8 +44,7 @@ class ProductController extends Controller
 
     public function create(ProductRequest $product)
     {
-        $product = $request ->only(['name','price','image','description']);
-        Product::create($product);
+        Product::create($request->validated());
         return redirect('/products');
     }
 }
