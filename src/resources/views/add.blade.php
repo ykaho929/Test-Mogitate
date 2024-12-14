@@ -46,7 +46,7 @@
                     <input type="file" name="image" >
                 </div>
             <div class="form__error">
-                @error('price')
+                @error('image')
                 {{ $message }}
                 @enderror
             </div>
