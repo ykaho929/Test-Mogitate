@@ -25,15 +25,15 @@
     </div>
     <div class="product-list">
         <div class="product-list-content">
-            
+            <img src="{{ asset('../../../storage/fruits-img/banana.png') }}" alt="バナナ">
             @foreach($products as $product)
             <div class="product-list-content__item">
+                <img src="{{ asset('../../../{{ $product->image }}') }}">
                 <img src="/storage/fruits-img/{{ $product->image }}">
                 <span class="product-name">{{ $product->name }}</span>
-                <span class="product-price">{{ $product->price }}</span>               
+                <span class="product-price">￥{{ $product->price }}</span>               
             </div>
             @endforeach
-            
         </div>
     </div>
 </div>
