@@ -20,7 +20,9 @@
                     <input type="text" name="name" placeholder="商品名を入力" />
                 </div>
             <div class="form__error">
-              <!--バリデーション機能を実装したら記述します。-->
+              @error('name')
+                {{ $message }}
+                @enderror
             </div>
         </div>
         <div class="form__group-title">
@@ -29,10 +31,10 @@
         </div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="text" name="name" placeholder="値段を入力" />
+                    <input type="text" name="price" placeholder="値段を入力" />
                 </div>
             <div class="form__error">
-                @error('name')
+                @error('price')
                 {{ $message }}
                 @enderror
             </div>
@@ -72,7 +74,7 @@
         </div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="text" name="name" placeholder="商品の説明を入力" />
+                    <input type="text" name="description" placeholder="商品の説明を入力" />
                 </div>
             <div class="form__error">
                 @error('description')
@@ -82,7 +84,7 @@
         </div>    
 
         <div class="resister-form__btn-inner">
-            <input class="resister-form__back-btn" type="submit" value="戻る" name="back">
+            <a class="resister-form__back-btn" href="/products">戻る</a>
             <input class="resister-form__add-btn" type="submit" value="登録" name="send">
         </div>
     </form>

@@ -7,5 +7,12 @@ use Illuminate\Database\Eloquent\Model;
 
 class Season extends Model
 {
-    protected $fillable = ['name'];
+    protected $fillable = ['
+        name'
+    ];
+
+    public function products()
+    {
+        return $this->belongsToMany(Product::class);
+    }
 }
