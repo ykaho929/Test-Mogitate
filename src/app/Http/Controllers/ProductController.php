@@ -49,4 +49,9 @@ class ProductController extends Controller
         Product::create($request->validated());
         return redirect('/products');
     }
+
+    public function show(Product $product)
+    {
+    return view('detail', compact('product'));
+    }
 }
