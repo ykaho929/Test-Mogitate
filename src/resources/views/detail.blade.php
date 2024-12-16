@@ -5,10 +5,10 @@
 @endsection
 
 @section('content')
-    <div class="product-detail">
-        <form class="update-form" action="/products/update" method="POST">
-            @method('PATCH')
-            @csrf
+<div class="product-detail">
+    <form class="update-form" action="/products/update" method="POST">
+        @method('PATCH')
+        @csrf
         <div class="update-form__item">
             <div class="product-list-content__item">
                 <a class="item__ttl"></a>
@@ -21,13 +21,21 @@
                 <a class="item__ttl">季節</a>
                     <div class="product-season">
                     @foreach ($seasons as $season)
-                        <input type="checkbox" name="seasons[]" value="{{ $season->id }}">
-                        {{ $season->name }}
+                        <div class="season-item"> 
+                            <input type="checkbox" name="seasons[]" value="{{ $season->id }}">
+                            {{ $season->name }}
+                        </div>
                     @endforeach
                     </div>
                 <a class="item__ttl">商品説明</a>
                     <input class="update-form__item-input" type="text" name="description" value="{{ $product['description'] }}">
             </div>
         </div>
-    </div>
+        <div class="update-form__button">
+            <a class="update-form__back-btn" href="/products">戻る</a>
+            <button class="update-form__button-submit" type="submit">変更を保存</button>
+            <button class="update-form__button-submit" type="deteate">削除</button>
+        </div>
+    </form>
+</div>
 @endsection
