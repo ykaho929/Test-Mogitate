@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Pagination\Paginator;
 
 
 
@@ -18,6 +19,7 @@ class ProductController extends Controller
     {
         $products = Product::all();
         $input = '';
+        $products = Product::paginate(6);
         return view('index', compact('products', 'input'));
     }
 
