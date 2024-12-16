@@ -25,20 +25,22 @@ class ProductController extends Controller
         return view('index', compact('products', 'input'));
     }
 
-    public function add(){
-        return view('add');
-    }
-    
-    public function store(Request $request)
+    public function store(ProductRequest $request)
     {
-        if($request->hasFile('image')){
-            $file = $request->file('image');
-            $path = Storage::disk('public')->putFile('images', $file);
-
-            return response()->json(['message' => 'Image uploaded successfully', 'url' => Storage::disk('public')->url($path)]);
+        $data = $request->validated(); 
+       
+        if ($request->hasFile('image')) {
+            $filename = time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $path = Storage::disk('custom')->put('fruits-img/' . $filename, $request->file('image'));
+            $data['image'] = $path;
+            Model::create($data);
         }
 
-        return response()->json(['error' => 'No image file uploaded'], 400);
+        $product = Product::create($data);
+
+        $product->seasons()->sync($request->input('seasons')); 
+
+        return redirect()->route('/products'); 
         
     }
 

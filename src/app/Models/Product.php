@@ -15,8 +15,9 @@ class Product extends Model
         'image',
         'description'
     ];
-    
-    protected $casts = [
-        'price' => 'integer',
-    ];
+
+    public function seasons()
+    {
+        return $this->belongsToMany(Season::class); 
+    }
 }
