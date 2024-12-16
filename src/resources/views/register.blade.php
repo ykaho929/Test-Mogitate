@@ -9,7 +9,7 @@
     <div class="Mogitate__heading-ttl">
         <h2>商品登録</h2>
     </div>
-    <form action="/products" method="post">
+    <form action="/products" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form__group-title">
             <span class="form__label--item">商品名</span>
@@ -17,7 +17,7 @@
         </div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="text" name="name" placeholder="商品名を入力" />
+                    <input type="text" name="name" placeholder="商品名を入力" value="{{ old('name') }}" />
                 </div>
             <div class="form__error">
               @error('name')
@@ -31,7 +31,7 @@
         </div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="text" name="price" placeholder="値段を入力" />
+                    <input type="text" name="price" placeholder="値段を入力" value="{{ old('price') }}" />
                 </div>
             <div class="form__error">
                 @error('price')
@@ -45,7 +45,7 @@
         </div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="file" name="image" >
+                    <input type="file" name="image"  value="{{ old('image') }}" >
                 </div>
             <div class="form__error">
                 @error('image')
@@ -59,7 +59,7 @@
         </div>
             <div class="form__group-content">
             @foreach ($seasons as $season)
-                <input type="checkbox" name="seasons[]" value="{{ $season->id }}">
+                <input type="checkbox" name="seasons[]" value="{{ $season->id }}" >
                 {{ $season->name }}
             @endforeach
             <div class="form__error">
@@ -74,7 +74,7 @@
         </div>
             <div class="form__group-content">
                 <div class="form__input--text">
-                    <input type="text" name="description" placeholder="商品の説明を入力" />
+                    <input type="text" name="description" placeholder="商品の説明を入力" value="{{ old('description') }}" />
                 </div>
             <div class="form__error">
                 @error('description')
