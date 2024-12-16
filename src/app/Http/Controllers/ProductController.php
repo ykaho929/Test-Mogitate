@@ -52,6 +52,14 @@ class ProductController extends Controller
 
     public function show(Product $product)
     {
-    return view('detail', compact('product'));
+        $seasons = $product->seasons;
+        return view('detail', compact('product','seasons'));
+    }
+
+    public function update(ProductRequest $request)
+    {
+        $product = $request->only(['']);
+        Product::find($request->id)->update($product);
+        return redirect('/products');
     }
 }
