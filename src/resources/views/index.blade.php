@@ -26,6 +26,7 @@
     <div class="product-list">
         <div class="product-list-content">
             @foreach($products as $product)
+            <a href="{{ route('products.show', $product) }}">
             <div class="product-list-content__item">
                 <img src="{{ asset('storage/fruits-img/' . $product->image) }}" >
                 <span class="product-name">{{ $product->name }}</span>

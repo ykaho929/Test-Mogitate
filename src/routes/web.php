@@ -24,3 +24,4 @@ Route::post('/products/search', [ProductController::class,'search']);
 Route::post('/products/register',[ProductController::class, 'store']);
 Route::get('/products/register',[SeasonController::class, 'create']);
 Route::post('/products', [ProductController::class, 'store']);
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
