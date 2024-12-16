@@ -7,6 +7,9 @@ use App\Http\Requests\SeasonRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Log;
+
 
 
 class ProductController extends Controller
@@ -27,27 +30,25 @@ class ProductController extends Controller
 
     public function store(ProductRequest $request)
     {
-        $data = $request->validated(); 
-       
+        try {
+        $validatedData = $request->validated();
+
         if ($request->hasFile('image')) {
-            $filename = time() . '.' . $request->file('image')->getClientOriginalExtension();
-            $path = Storage::disk('custom')->put('fruits-img/' . $filename, $request->file('image'));
-            $data['image'] = $path;
-            Model::create($data);
+            $imagePath = $request->file('image')->store('fruits-img', 'public');
+            $validatedData['image'] = $imagePath;
         }
-
-        $product = Product::create($data);
-
-        $product->seasons()->sync($request->input('seasons')); 
-
-        return redirect()->route('/products'); 
         
-    }
-
-    public function create(ProductRequest $product)
-    {
-        Product::create($request->validated());
-        return redirect('/products');
+        DB::transaction(function () use ($validatedData) {
+            $product = Product::create($validatedData);
+            $product->seasons()->sync($request->input('seasons'));
+        });
+        
+        return redirect()->route('products.index');
+        dd($request->validated());
+        } 
+        catch (\Exception $e) {
+        Log::error($e);}
+                
     }
 
     public function show(Product $product)
@@ -58,8 +59,15 @@ class ProductController extends Controller
 
     public function update(ProductRequest $request)
     {
-        $product = $request->only(['']);
-        Product::find($request->id)->update($product);
-        return redirect('/products');
+        $validatedData = $request->validated();
+        $product->update($validatedData);
+
+        return redirect()->route('products.index');
+    }
+
+    public function edit(Product $product)
+    {
+        $product->image_path = asset('storage/fruits-img/' .$product->image);
+        return view('products.edit', compact('product'));
     }
 }
