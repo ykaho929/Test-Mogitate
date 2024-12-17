@@ -6,10 +6,10 @@
 
 @section('content')
 <div class="product-detail">
-    <form class="update-form" action="/products/update" method="POST">
+    <form class="update-form" action="{{ route('products.update', $product->id) }}" method="POST">
         @method('PATCH')
         @csrf
-        <div class="update-form__item">
+        <div class="detail-form__item">
             <div class="product-list-content__item">
                 <a class="item__ttl"></a>
                     <img src="{{ asset('storage/fruits-img/' . $product->image) }}" alt="{{ $product->name }}">
@@ -23,7 +23,11 @@
                     @foreach ($seasons as $season)
                         <div class="season-item"> 
                             <input type="checkbox" name="seasons[]" value="{{ $season->id }}">
-                            {{ $season->name }}
+                                @if (in_array($season->id, $product->seasons->pluck('id')->toArray()))
+                                checked
+                                @endif
+                                >
+                                {{ $season->name }}
                         </div>
                     @endforeach
                     </div>
@@ -31,10 +35,17 @@
                     <input class="update-form__item-input" type="text" name="description" value="{{ $product['description'] }}">
             </div>
         </div>
+        <a class="update-form__back-btn" href="/products">戻る</a>
         <div class="update-form__button">
-            <a class="update-form__back-btn" href="/products">戻る</a>
             <button class="update-form__button-submit" type="submit">変更を保存</button>
-            <button class="update-form__button-submit" type="deteate">削除</button>
+        </div>
+    </form>
+<div class="detail-form__item">
+    <form class="deleate-form" action="{{ route('products.destroy', $product->id) }}" method="POST">
+        @method('DELETE')
+        @csrf
+        <div class="delete-form__button">
+            <button class="delete-form__button-submit" type="submit">削除</button>
         </div>
     </form>
 </div>
