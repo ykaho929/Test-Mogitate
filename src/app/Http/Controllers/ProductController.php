@@ -7,11 +7,10 @@ use App\Http\Requests\SeasonRequest;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
-use Illuminate\Pagination\Paginator;
-
-
 
 class ProductController extends Controller
 {
@@ -26,7 +25,7 @@ class ProductController extends Controller
     public function search(Request $request)
     {
         $input = $request->input('input');
-        $products = Product::where('name', 'like', '%' . $input . '%')->get(); 
+        $products = Product::where('name', 'like', '%' . $input . '%')->paginate(6); 
         return view('index', compact('products', 'input'));
     }
 
@@ -46,11 +45,10 @@ class ProductController extends Controller
         });
         
         return redirect()->route('products.index');
-        dd($request->validated());
         } 
         catch (\Exception $e) {
         Log::error($e);}
-                
+        
     }
 
     public function show(Product $product)
@@ -59,11 +57,12 @@ class ProductController extends Controller
         return view('detail', compact('product','seasons'));
     }
 
-    public function update(ProductRequest $request)
+    public function update(Request $request, Product $product)
     {
         $validatedData = $request->validated();
         $product->update($validatedData);
-
+        $product->update($request->except('seasons'));
+        $product->seasons()->sync($request->input('seasons', []));
         return redirect()->route('products.index');
     }
 
@@ -71,5 +70,12 @@ class ProductController extends Controller
     {
         $product->image_path = asset('storage/fruits-img/' .$product->image);
         return view('products.edit', compact('product'));
+    }
+
+    public function destroy(Request $request, Product $product)
+    {
+        $product->seasons()->detach();
+        $product->delete();
+        return redirect()->route('products.index');
     }
 }
