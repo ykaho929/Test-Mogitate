@@ -36,7 +36,7 @@ class ProductController extends Controller
         return view('detail', compact('product','seasons'));
     }
 
-    public function store(ProductRequest $request)
+    public function store(Product $product, ProductRequest $request)
     {
         try {
         $validatedData = $request->validated();
@@ -51,14 +51,14 @@ class ProductController extends Controller
             $product->seasons()->sync($request->input('seasons'));
         });
         
-        return redirect()->route('products.index');
+        return redirect('/products');
         } 
         catch (\Exception $e) {
         Log::error($e);}
         
     }
 
-    public function update(ProductRequest $request)
+    public function update(ProductRequest $request, Product $product)
     {
         $validatedData = $request->validated();
         $product->update($validatedData);

@@ -20,16 +20,15 @@
                     <input class="update-form__item-input" type="text" name="price" value="{{ $product['price'] }}">
                 <a class="item__ttl">季節</a>
                     <div class="product-season">
-                    @foreach ($seasons as $season)
-                        <div class="season-item"> 
-                            <input type="checkbox" name="seasons[]" value="{{ $season->id }}">
-                                @if (in_array($season->id, $product->seasons->pluck('id')->toArray()))
-                                checked
-                                @endif
-                                >
+                        @foreach ($seasons as $season)
+                            <div class="season-item">
+                                <input type="checkbox" name="seasons[]" value="{{ $season->id }}"
+                                    @if ($product->seasons->contains($season))
+                                        checked
+                                    @endif>
                                 {{ $season->name }}
-                        </div>
-                    @endforeach
+                            </div>
+                        @endforeach
                     </div>
                 <a class="item__ttl">商品説明</a>
                     <input class="update-form__item-input" type="text" name="description" value="{{ $product['description'] }}">
