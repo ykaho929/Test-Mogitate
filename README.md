@@ -20,5 +20,5 @@ Laravel環境の構築
 　　![png](https://github.com/user-attachments/assets/5a26dcd5-9a58-4fd6-a807-7ee72b4aea36)
 
 ## URL  
-・開発環境：http://localhost  
+・開発環境：http://localhost/products  
 ・phpMyAdmin: http://localhost:8080/  
