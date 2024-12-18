@@ -13,6 +13,11 @@ class SeasonController extends Controller
     public function create(){
         $seasons = Season::all();
         return view('register', compact('seasons'));
-    }   
+    }
+
+    public function seasons(){
+        return $this->hasManyThrough(Season::class, ProductSeason::class);
+        $product->seasons()->sync($request->input('seasons', []));
+    }
     
 }

@@ -21,9 +21,8 @@ Route::get('/', function () {
 });
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
 Route::get('/products/search', [ProductController::class,'search']);
-Route::post('/products',[ProductController::class, 'store']);
+Route::post('/products',[ProductController::class, 'store'])->name('products.store');
 Route::get('/products/register',[SeasonController::class, 'create']);
-Route::post('/products', [ProductController::class, 'store']);
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('products.show');
 Route::patch('/products', [ProductController::class, 'update'])->name('products.update');
 Route::delete('/products{product}', [ProductController::class, 'destroy'])->name('products.destroy');
