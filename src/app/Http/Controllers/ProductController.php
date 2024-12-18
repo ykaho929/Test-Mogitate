@@ -11,6 +11,7 @@ use Intervention\Image\Facades\Image;
 use Illuminate\Pagination\Paginator;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Auth; 
 
 class ProductController extends Controller
 {
@@ -29,6 +30,12 @@ class ProductController extends Controller
         return view('index', compact('products', 'input'));
     }
 
+    public function show(Product $product)
+    {
+        $seasons = $product->seasons;
+        return view('detail', compact('product','seasons'));
+    }
+
     public function store(ProductRequest $request)
     {
         try {
@@ -38,7 +45,7 @@ class ProductController extends Controller
             $imagePath = $request->file('image')->store('fruits-img', 'public');
             $validatedData['image'] = $imagePath;
         }
-        
+
         DB::transaction(function () use ($validatedData) {
             $product = Product::create($validatedData);
             $product->seasons()->sync($request->input('seasons'));
@@ -51,25 +58,13 @@ class ProductController extends Controller
         
     }
 
-    public function show(Product $product)
-    {
-        $seasons = $product->seasons;
-        return view('detail', compact('product','seasons'));
-    }
-
-    public function update(Request $request, Product $product)
+    public function update(ProductRequest $request)
     {
         $validatedData = $request->validated();
         $product->update($validatedData);
         $product->update($request->except('seasons'));
         $product->seasons()->sync($request->input('seasons', []));
         return redirect()->route('products.index');
-    }
-
-    public function edit(Product $product)
-    {
-        $product->image_path = asset('storage/fruits-img/' .$product->image);
-        return view('products.edit', compact('product'));
     }
 
     public function destroy(Request $request, Product $product)

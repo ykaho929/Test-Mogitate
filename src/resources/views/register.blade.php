@@ -9,7 +9,7 @@
     <div class="Mogitate__heading-ttl">
         <h2>商品登録</h2>
     </div>
-    <form action="/products" method="post" enctype="multipart/form-data">
+    <form action="{{ route('products.store') }}" method="post" enctype="multipart/form-data">
         @csrf
         <div class="form__group-title">
             <span class="form__label--item">商品名</span>
