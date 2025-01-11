@@ -63,7 +63,7 @@
                 {{ $season->name }}
             @endforeach
             <div class="form__error">
-                @error('season')
+                @error('seasons')
                 {{ $message }}
                 @enderror
             </div>

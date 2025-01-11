@@ -36,25 +36,27 @@ class ProductController extends Controller
         return view('detail', compact('product','seasons'));
     }
 
-    public function store(Product $product, ProductRequest $request)
+    public function store(ProductRequest $request)
     {
+       
         try {
-        $validatedData = $request->validated();
+            $validatedData = $request->validated();
 
-        if ($request->hasFile('image')) {
-            $imagePath = $request->file('image')->store('fruits-img', 'public');
-            $validatedData['image'] = $imagePath;
-        }
+            if ($request->hasFile('image')) {
+                $imagePath = $request->file('image')->store('fruits-img', 'public');
+                $validatedData['image'] = $imagePath;
+            }
 
-        DB::transaction(function () use ($validatedData) {
-            $product = Product::create($validatedData);
-            $product->seasons()->sync($request->input('seasons'));
-        });
-        
-        return redirect('/products');
+            DB::transaction(function () use ($validatedData) {
+                $product = Product::create($validatedData);
+                $product->seasons()->sync($validatedData['seasons']);
+            });
+            
+            return redirect('/products');
         } 
-        catch (\Exception $e) {
-        Log::error($e);}
+            catch (\Exception $e) {
+            Log::error($e);
+        }
         
     }
 
